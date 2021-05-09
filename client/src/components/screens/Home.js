@@ -7,6 +7,7 @@ import { FaRegCommentAlt } from "react-icons/fa"
 import { AiOutlineDelete } from "react-icons/ai"
 import { Snackbar } from '@material-ui/core'
 import Alert from '@material-ui/lab/Alert'
+import { Link } from 'react-router-dom'
 
 function Home() {
     const [data, setData] = useState([])
@@ -126,8 +127,24 @@ function Home() {
                 data.map((item) => {
                     return (
                         <div key={item._id} className="card home-card">
-                            <img style={{ border: "2px solid black", maxWidth: "50px", height: "50px", borderRadius: "60%", margin: "5px 10px" }} src="https://images.unsplash.com/photo-1541647376583-8934aaf3448a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60" />
-                            <h5 style={{ display: "inline-block", margin: "4px 0px" }}>{item.postedBy.name} </h5>
+                            <img
+                                style={{
+                                    border: "2px solid black",
+                                    maxWidth: "50px",
+                                    height: "50px",
+                                    borderRadius: "60%",
+                                    margin: "5px 10px"
+                                }} src="https://images.unsplash.com/photo-1541647376583-8934aaf3448a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60"
+                            />
+                            <h5 style={{
+                                display: "inline-block",
+                                margin: "4px 0px"
+                            }}>
+                                <Link to={item.postedBy._id !== state._id ? "/profile/" + item.postedBy._id : "/profile"}>
+                                    {item.postedBy.name}
+                                </Link>
+                            </h5>
+
                             {item.postedBy._id == state._id && <AiOutlineDelete style={{ float: "right", height: "40px", width: "40px", color: "red" }} onClick={() => deletePost(item._id)} />}
                             <div className="card-image">
                                 <img src={item.photo} />

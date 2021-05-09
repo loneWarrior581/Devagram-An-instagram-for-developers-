@@ -30,7 +30,7 @@ function Profile() {
                 <div>
                     <h4>{state ? state.name : null} </h4>
                     <div style={{ display: "flex", justifyContent: "space-between", width: "109%" }} >
-                        <p>40 <b>Posts</b></p>
+                        <p>{pics.length} <b>Posts</b></p>
                         <p>30 <b>Followers</b></p>
                         <p>140 <b>Following</b></p>
                     </div>

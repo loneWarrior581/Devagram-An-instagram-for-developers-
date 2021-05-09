@@ -6,6 +6,7 @@ const UserPorfile = () => {
 
     const [userProfile, setUserProfile] = useState(null)
     const [pics, setPics] = useState([])
+    const [follow, setFollow] = useState(true)
     const { state, dispatch } = useContext(UserContext)
     const { userid } = useParams()
 
@@ -20,8 +21,64 @@ const UserPorfile = () => {
 
                 setUserProfile({ ...result })
             })
-    }, [])
+    }, [userProfile])
 
+
+    const followUser = () => {
+        fetch("http://localhost:3001/follow", {
+            method: "put",
+            headers: {
+                "Content-type": "Application/json",
+                "Authorization": "Bearer " + localStorage.getItem("jwt")
+            },
+            body: JSON.stringify({
+                followId: userid
+            })
+        }).then(res => res.json())
+            .then(data => {
+                console.log(data)
+                dispatch({ type: "UPDATE", payload: { following: data.following, followers: data.followers } })
+                localStorage.setItem("user", JSON.stringify(data))
+                // setUserProfile((prevState) => {
+                //     return {
+                //         ...prevState,
+                //         user: {
+                //             ...prevState.user,
+                //             followers: [...prevState.user[0].followers, data._id]
+                //         }
+                //     }
+                // })
+                setFollow(false)
+            })
+    }
+
+    const unfollowUser = () => {
+        fetch("http://localhost:3001/unfollow", {
+            method: "put",
+            headers: {
+                "Content-type": "Application/json",
+                "Authorization": "Bearer " + localStorage.getItem("jwt")
+            },
+            body: JSON.stringify({
+                unfollowId: userid
+            })
+        }).then(res => res.json())
+            .then(data => {
+                console.log(data)
+                dispatch({ type: "UPDATE", payload: { following: data.following, followers: data.followers } })
+                localStorage.setItem("user", JSON.stringify(data))
+                // setUserProfile((prevState) => {
+                //     return {
+                //         ...prevState,
+                //         user: {
+                //             ...prevState.user,
+                //             followers: [...prevState.user[0].followers, data._id]
+                //         }
+                //     }
+                // })
+                setFollow(true)
+            })
+    }
 
     return (
         <>
@@ -44,10 +101,22 @@ const UserPorfile = () => {
                                 <h4>{userProfile.user[0].name} </h4>
                                 <h5>{userProfile.user[0].email}</h5>
                                 <div style={{ display: "flex", justifyContent: "space-between", width: "109%" }} >
-                                    <p>40 <b>Posts</b></p>
-                                    <p>30 <b>Followers</b></p>
-                                    <p>140 <b>Following</b></p>
+                                    <p>{userProfile.posts.length} <b>Posts</b></p>
+                                    <p>{userProfile.user[0].followers.length} <b>Followers</b></p>
+                                    <p>{userProfile.user[0].following.length} <b>Following</b></p>
                                 </div>
+                                {
+                                    follow
+                                        ?
+                                        <button className="btn waves-effect waves-light #fb8c00 orange darken-1" onClick={() => followUser()} >
+                                            Follow
+                                        </button>
+                                        :
+                                        <button className="btn waves-effect waves-light #fb8c00 orange darken-1" onClick={() => unfollowUser()} >
+                                            UnFollow
+                                        </button>
+
+                                }
                             </div>
                         </div>
                         <div className="gallery" >
