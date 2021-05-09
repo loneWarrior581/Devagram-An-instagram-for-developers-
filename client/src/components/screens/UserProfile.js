@@ -6,9 +6,9 @@ const UserPorfile = () => {
 
     const [userProfile, setUserProfile] = useState(null)
     const [pics, setPics] = useState([])
-    const [follow, setFollow] = useState(true)
     const { state, dispatch } = useContext(UserContext)
     const { userid } = useParams()
+    const [follow, setFollow] = useState(state ? !state.following.includes(userid) : true) // this solves the issue for the local state for follow/unfollow button
 
     useEffect(() => {
         fetch(`http://localhost:3001/user/${userid}`, {
