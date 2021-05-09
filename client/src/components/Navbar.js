@@ -19,7 +19,7 @@ function Navbar() {
         <li key='home' className="homePage"><Link to="/"><HomeOutlinedIcon fontSize='large' /></Link></li>,
         <li key='createpost' className="addPost"><Link to="/createpost"><AddCircleOutlineOutlinedIcon fontSize={'large'} /></Link></li>,
         <li key='profile'><Link to="/profile"><FaRegUser style={{ width: "30px", height: "30px" }} /></Link></li>,
-        <li key='profile'><Link to="/profile"><SettingsIcon /> </Link></li>,
+        <li key='following Post'><Link to="/followingposts"><SettingsIcon /> </Link></li>,
         <li key='logout'>
           <FiLogOut style={{ width: "30px", height: "30px", color: "black" }} onClick={
             () => {

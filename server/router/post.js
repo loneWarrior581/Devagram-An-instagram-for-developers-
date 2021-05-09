@@ -17,6 +17,19 @@ router.get('/allPost', requireLogin, (req, res) => {
         })
 })
 
+
+router.get('/getsubpost', requireLogin, (req, res) => {
+    Post.find({ postedBy: { $in: req.user.following } })
+        .populate("postedBy", "_id name") //this will show the selected field in the given schema here it is _id and name 
+        .populate("comment.postedBy", "_id name")
+        .then((posts) => {
+            res.send(posts)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+})
+
 router.post('/createPost', requireLogin, (req, res) => {
     const { title, body, photo } = req.body;
     if (!title || !body || !photo) {
