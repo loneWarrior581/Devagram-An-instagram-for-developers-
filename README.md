@@ -20,6 +20,7 @@ Devegram a.k.a. `An Instagram for developers` allows to create as well as find o
 - [ ] List all the users allowing user to follow.
 - [ ] Adding specific section for hackathons and different opportunity in the blog form.
 - [ ] Adding stories same as instagram has using [react-insta-stories](https://www.npmjs.com/package/react-insta-stories)
+- [ ] Toggle button for the dark mode.🌑🕶
 - [ ] Adding some more setting features to make some modification in the frontend side.
 - [ ] Add the posts in the user profile to open as **Model** just like instagram dose's
 - [ ] Adding Responsivness to the application
